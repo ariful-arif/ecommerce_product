@@ -1,0 +1,77 @@
+import 'package:ecommerce_product/Models/product_model.dart';
+import 'package:ecommerce_product/constants/base_url.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+
+final productControllerProvider =
+    StateNotifierProvider<ProductController, AsyncValue<List<ProductModel>>>(
+  (ref) => ProductController(),
+);
+
+class ProductController extends StateNotifier<AsyncValue<List<ProductModel>>> {
+  ProductController() : super(const AsyncLoading()) {
+    fetchProducts();
+  }
+
+  int _limit = 5;
+  int _page = 1;
+  bool _isLoadingMore = false;
+  final List<ProductModel> _allProducts = [];
+  String _searchQuery = '';
+
+  bool get isLoadingMore => _isLoadingMore;
+
+  Future<void> fetchProducts() async {
+    try {
+      state = const AsyncLoading();
+      final response = await http.get(Uri.parse('$baseUrl/products?limit=$_limit'));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        final products = data.map((e) => ProductModel.fromJson(e)).toList();
+        _allProducts.addAll(products);
+        _page++;
+        
+      } else {
+        state = AsyncError('Failed to load products', StackTrace.current);
+      }
+    } catch (e) {
+      state = AsyncError(e.toString(), StackTrace.current);
+    }
+  }
+
+  Future<void> fetchMore() async {
+    if (_isLoadingMore) return;
+    _isLoadingMore = true;
+
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/products?limit=${_page * _limit}'));
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+        final products = data.map((e) => ProductModel.fromJson(e)).toList();
+
+        if (products.isEmpty) {
+          _isLoadingMore = false;
+          return;
+        }
+
+        _allProducts.clear(); // because we are increasing limit, not paging
+        _allProducts.addAll(products);
+        _page++;
+        
+      } else {
+        state = AsyncError('Failed to load more products', StackTrace.current);
+      }
+    } catch (e) {
+      state = AsyncError(e.toString(), StackTrace.current);
+    } finally {
+      _isLoadingMore = false;
+    }
+  }
+
+ 
+}
+
