@@ -33,7 +33,7 @@ class ProductController extends StateNotifier<AsyncValue<List<ProductModel>>> {
         final products = data.map((e) => ProductModel.fromJson(e)).toList();
         _allProducts.addAll(products);
         _page++;
-        
+        _updateStateWithSearchFilter();
       } else {
         state = AsyncError('Failed to load products', StackTrace.current);
       }
@@ -61,7 +61,7 @@ class ProductController extends StateNotifier<AsyncValue<List<ProductModel>>> {
         _allProducts.clear(); // because we are increasing limit, not paging
         _allProducts.addAll(products);
         _page++;
-        
+        _updateStateWithSearchFilter();
       } else {
         state = AsyncError('Failed to load more products', StackTrace.current);
       }
@@ -72,6 +72,17 @@ class ProductController extends StateNotifier<AsyncValue<List<ProductModel>>> {
     }
   }
 
- 
+  void _updateStateWithSearchFilter() {
+    final filtered = _allProducts.where((product) {
+      final title = product.title?.toLowerCase() ?? '';
+      return title.contains(_searchQuery.toLowerCase());
+    }).toList();
+    state = AsyncData(filtered);
+  }
+
+  void setSearchQuery(String query) {
+    _searchQuery = query;
+    _updateStateWithSearchFilter();
+  }
 }
 

@@ -48,7 +48,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 height: 48,
                 width: width,
                 child: CupertinoSearchTextField(
-                 
+                  onChanged: (value) {
+                    ref
+                        .read(productControllerProvider.notifier)
+                        .setSearchQuery(value);
+                  },
                   prefixIcon: SvgPicture.asset(
                     'assets/icons/search-normal.svg',
                     height: 24,
