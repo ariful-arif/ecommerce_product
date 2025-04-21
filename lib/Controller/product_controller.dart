@@ -1,14 +1,14 @@
+import 'dart:convert';
+
 import 'package:ecommerce_product/Models/product_model.dart';
 import 'package:ecommerce_product/constants/base_url.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 
 final productControllerProvider =
     StateNotifierProvider<ProductController, AsyncValue<List<ProductModel>>>(
-  (ref) => ProductController(),
-);
+      (ref) => ProductController(),
+    );
 
 class ProductController extends StateNotifier<AsyncValue<List<ProductModel>>> {
   ProductController() : super(const AsyncLoading()) {
@@ -26,7 +26,9 @@ class ProductController extends StateNotifier<AsyncValue<List<ProductModel>>> {
   Future<void> fetchProducts() async {
     try {
       state = const AsyncLoading();
-      final response = await http.get(Uri.parse('$baseUrl/products?limit=$_limit'));
+      final response = await http.get(
+        Uri.parse('$baseUrl/products?limit=$_limit'),
+      );
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
@@ -47,7 +49,9 @@ class ProductController extends StateNotifier<AsyncValue<List<ProductModel>>> {
     _isLoadingMore = true;
 
     try {
-      final response = await http.get(Uri.parse('$baseUrl/products?limit=${_page * _limit}'));
+      final response = await http.get(
+        Uri.parse('$baseUrl/products?limit=${_page * _limit}'),
+      );
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
@@ -58,7 +62,7 @@ class ProductController extends StateNotifier<AsyncValue<List<ProductModel>>> {
           return;
         }
 
-        _allProducts.clear(); // because we are increasing limit, not paging
+        _allProducts.clear();
         _allProducts.addAll(products);
         _page++;
         _updateStateWithSearchFilter();
@@ -73,10 +77,11 @@ class ProductController extends StateNotifier<AsyncValue<List<ProductModel>>> {
   }
 
   void _updateStateWithSearchFilter() {
-    final filtered = _allProducts.where((product) {
-      final title = product.title?.toLowerCase() ?? '';
-      return title.contains(_searchQuery.toLowerCase());
-    }).toList();
+    final filtered =
+        _allProducts.where((product) {
+          final title = product.title?.toLowerCase() ?? '';
+          return title.contains(_searchQuery.toLowerCase());
+        }).toList();
     state = AsyncData(filtered);
   }
 
@@ -84,5 +89,25 @@ class ProductController extends StateNotifier<AsyncValue<List<ProductModel>>> {
     _searchQuery = query;
     _updateStateWithSearchFilter();
   }
-}
 
+  void sortProducts(String type) {
+    switch (type) {
+      case 'highToLow':
+        _allProducts.sort(
+          (a, b) => ((b.price ?? 0) as num).compareTo((a.price ?? 0) as num),
+        );
+        break;
+      case 'lowToHigh':
+        _allProducts.sort(
+          (a, b) => ((a.price ?? 0) as num).compareTo((b.price ?? 0) as num),
+        );
+        break;
+      case 'rating':
+        _allProducts.sort(
+          (a, b) => ((b.rating!.rate ?? 0) as num).compareTo((a.rating!.rate ?? 0) as num),
+        );
+        break;
+    }
+    _updateStateWithSearchFilter();
+  }
+}

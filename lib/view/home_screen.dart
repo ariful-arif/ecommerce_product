@@ -1,6 +1,7 @@
 import 'package:ecommerce_product/Controller/product_controller.dart';
 import 'package:ecommerce_product/constants/colors.dart';
 import 'package:ecommerce_product/widgets/product_grid.dart';
+import 'package:ecommerce_product/widgets/sort_dialoge.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,32 +45,66 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 19.0),
           child: Column(
             children: [
-              SizedBox(
-                height: 48,
-                width: width,
-                child: CupertinoSearchTextField(
-                  onChanged: (value) {
-                    ref
-                        .read(productControllerProvider.notifier)
-                        .setSearchQuery(value);
-                  },
-                  prefixIcon: SvgPicture.asset(
-                    'assets/icons/search-normal.svg',
-                    height: 24,
-                    width: 24,
-                  ),
-                  placeholder: 'Search Anything...',
-                  placeholderStyle: const TextStyle(
-                    color: greyTextColor,
-                    fontSize: 16,
-                    fontFamily: "Inter",
-                    fontWeight: FontWeight.w400,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: searchBorder, width: 1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  style: const TextStyle(fontSize: 16),
+              FittedBox(
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: 48,
+                      width: width - 80,
+                      child: CupertinoSearchTextField(
+                        onChanged: (value) {
+                          ref
+                              .read(productControllerProvider.notifier)
+                              .setSearchQuery(value);
+                        },
+                        prefixIcon: SvgPicture.asset(
+                          'assets/icons/search-normal.svg',
+                          height: 24,
+                          width: 24,
+                        ),
+                        placeholder: 'Search Anything...',
+                        placeholderStyle: const TextStyle(
+                          color: greyTextColor,
+                          fontSize: 16,
+                          fontFamily: "Inter",
+                          fontWeight: FontWeight.w400,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: searchBorder, width: 1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(16),
+                            ),
+                          ),
+                          builder: (context) {
+                            return SortDialog(
+                              onSortSelected: (sortType) {
+                                ref
+                                    .read(productControllerProvider.notifier)
+                                    .sortProducts(sortType);
+                              },
+                            );
+                          },
+                        );
+                      },
+
+                      child: SvgPicture.asset(
+                        'assets/icons/sort.svg',
+                        height: 48,
+                        width: 48,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
