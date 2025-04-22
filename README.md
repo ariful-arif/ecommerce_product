@@ -15,30 +15,11 @@ A Flutter-based eCommerce app that displays products from an API with features l
 
 ---
 
----
-
-##  Getting Started
-
-1. Clone the repo
-```bash
-git clone https://github.com/yourname/ecommerce_product_app.git
-cd ecommerce_product_app
-```
-
-2. Install dependencies
-```bash
-flutter pub get
-```
-
-3. Run the app
-```bash
-flutter run
-```
-
----
-
 ## Screenshots
 
+https://github.com/ariful-arif/ecommerce_product/blob/c4574df02129b2e40281edf5494c277af5ca9d17/assets/images/Screenshot_1745314533.png
+https://github.com/ariful-arif/ecommerce_product/blob/c4574df02129b2e40281edf5494c277af5ca9d17/assets/images/Screenshot_1745314542.png
+https://github.com/ariful-arif/ecommerce_product/blob/c4574df02129b2e40281edf5494c277af5ca9d17/assets/images/Screenshot_1745314550.png
 | Home Screen | Search Active | Sort Dialog |
 |-------------|---------------|-------------|
 | ![Home](screenshots/home.png) | ![Search](screenshots/search.png) | ![Sort](screenshots/sort.png) |
