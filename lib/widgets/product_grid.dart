@@ -65,6 +65,32 @@ class _ProductState extends State<Product> {
                   ),
                 ),
               ),
+              if (!_isFavourite)
+                Positioned(
+                  top: 4,
+                  left: 4,
+                  child: Container(
+                    height: 19,
+                    // width: 24,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 4,
+                      vertical: 2,
+                    ),
+                    decoration: BoxDecoration(
+                      color: redCOlor,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                    child: Text(
+                      'Out Of Stock',
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontFamily: "Inter",
+                        color: scaffoldBg,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
           Padding(

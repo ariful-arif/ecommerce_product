@@ -1,4 +1,6 @@
+import 'package:ecommerce_product/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SortDialog extends StatelessWidget {
   final void Function(String) onSortSelected;
@@ -22,32 +24,71 @@ class SortDialog extends StatelessWidget {
               const Expanded(
                 child: Text(
                   'Sort By',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: "Inter",
+                    color: blackTextColor,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => Navigator.of(context).pop(),
+              InkWell(
+                child: SvgPicture.asset(
+                  "assets/icons/x.svg",
+                  height: 24,
+                  width: 24,
+                ),
+                onTap: () => Navigator.of(context).pop(),
               ),
             ],
           ),
           const SizedBox(height: 8),
           ListTile(
-            title: const Text('Price - High to Low'),
+            contentPadding: EdgeInsets.zero,
+            minVerticalPadding: 0.0,
+            title: const Text(
+              'Price - High to Low',
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: "Inter",
+                color: blackTextColor,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
             onTap: () {
               Navigator.of(context).pop();
               onSortSelected('highToLow');
             },
           ),
           ListTile(
-            title: const Text('Price - Low to High'),
+            contentPadding: EdgeInsets.zero,
+            minVerticalPadding: 0.0,
+            title: const Text(
+              'Price - Low to High',
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: "Inter",
+                color: blackTextColor,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
             onTap: () {
               Navigator.of(context).pop();
               onSortSelected('lowToHigh');
             },
           ),
           ListTile(
-            title: const Text('Rating'),
+            contentPadding: EdgeInsets.zero,
+            minVerticalPadding: 0.0,
+            title: const Text(
+              'Rating',
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: "Inter",
+                color: blackTextColor,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
             onTap: () {
               Navigator.of(context).pop();
               onSortSelected('rating');
