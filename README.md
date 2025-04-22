@@ -17,12 +17,13 @@ A Flutter-based eCommerce app that displays products from an API with features l
 
 ## Screenshots
 
-https://github.com/ariful-arif/ecommerce_product/blob/c4574df02129b2e40281edf5494c277af5ca9d17/assets/images/Screenshot_1745314533.png
-https://github.com/ariful-arif/ecommerce_product/blob/c4574df02129b2e40281edf5494c277af5ca9d17/assets/images/Screenshot_1745314542.png
-https://github.com/ariful-arif/ecommerce_product/blob/c4574df02129b2e40281edf5494c277af5ca9d17/assets/images/Screenshot_1745314550.png
-| Home Screen | Search Active | Sort Dialog |
-|-------------|---------------|-------------|
-| ![Home](screenshots/home.png) | ![Search](screenshots/search.png) | ![Sort](screenshots/sort.png) |
+# Home Screen
+ ![Home1](Screenshot_1745314533.png)
+ ![Home2](Screenshot_1745314542.png)
+# Search Active
+![Search](image.png)
+# Sort Dialog
+![Sort](Screenshot_1745314550.png)
 
 ---
 
