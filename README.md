@@ -1,16 +1,58 @@
-# ecommerce_product
+# E-Commerce Product App (Flutter)
 
-A new Flutter project.
+A Flutter-based eCommerce app that displays products from an API with features like **search**, **pagination**, and **sorting**, following **clean architecture principles** and using **Riverpod** for state management.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+-  Product listing in GridView
+-  Limit-based Pagination
+-  Search products by name
+-  Sort by price (low to high, high to low, ratting)
+-  Clean architecture
+-  Responsive UI
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+##  Getting Started
+
+1. Clone the repo
+```bash
+git clone https://github.com/yourname/ecommerce_product_app.git
+cd ecommerce_product_app
+```
+
+2. Install dependencies
+```bash
+flutter pub get
+```
+
+3. Run the app
+```bash
+flutter run
+```
+
+---
+
+## Screenshots
+
+| Home Screen | Search Active | Sort Dialog |
+|-------------|---------------|-------------|
+| ![Home](screenshots/home.png) | ![Search](screenshots/search.png) | ![Sort](screenshots/sort.png) |
+
+---
+
+## Technologies Used
+
+- Flutter 3+
+- Dart
+- Riverpod
+- REST API (with limit-based pagination)
+- Clean Architecture Principles
+
+---
+
+
